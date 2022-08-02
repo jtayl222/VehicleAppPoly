@@ -4,16 +4,16 @@ unit VehicleUnitData;
 import com.example.vehicle.datamodel.Car;
 import com.example.vehicle.datamodel.Truck;
 
-rule "Car Rule using polymorphism"
+rule "Car Rule"
   when
-    $v : /vehicleInstances[overloaded == false, (this instanceof Car), this#Car.currentPassengers > this#Car.maxPassengers ]
+    $v : /vehicleInstances#Car[ currentPassengers > maxPassengers ]
   then
     modify($v){setOverloaded(true)};
 end
 
-rule "Truck Rule using polymorphism"
+rule "Truck Rule"
   when
-    $v : /vehicleInstances[overloaded == false, (this instanceof Truck), this#Truck.currentCargoWeight > this#Truck.maxCargoWeight]
+    $v : /vehicleInstances#Truck[ currentCargoWeight > maxCargoWeight ]
   then
     modify($v){setOverloaded(true)};
 end
