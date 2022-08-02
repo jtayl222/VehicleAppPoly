@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
   @Type(value = Car.class, name = "Car"), 
   @Type(value = Truck.class, name = "Truck") 
 })
-public class Vehicle {
+public abstract class Vehicle implements VehicleBase {
     private String color;
     private Integer vehicleId;
     private Boolean overloaded = false;

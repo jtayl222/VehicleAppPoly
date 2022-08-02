@@ -4,19 +4,41 @@ unit VehicleUnitData;
 import com.example.vehicle.datamodel.Car;
 import com.example.vehicle.datamodel.Truck;
 
-rule "Car Rule using polymorphism"
+// Example #1: WORKS
+rule "Truck Rule"
   when
-    $v : /vehicleInstances[overloaded == false, (this instanceof Car), this#Car.currentPassengers > this#Car.maxPassengers ]
+    $v : /vehicleInstances[(this instanceof Truck), overloaded==false, this#Truck.getCurrentCargoWeight() > this#Truck.getMaxCargoWeight() ]
   then
+    System.out.println("Found Vehicle");
     modify($v){setOverloaded(true)};
 end
 
-rule "Truck Rule using polymorphism"
-  when
-    $v : /vehicleInstances[overloaded == false, (this instanceof Truck), this#Truck.currentCargoWeight > this#Truck.maxCargoWeight]
-  then
-    modify($v){setOverloaded(true)};
-end
+// // Example #2: ERROR: Method getMaxCargoWeight on class com.example.vehicle.datamodel.Vehicle with arguments [] is missing
+// rule "Truck Rule"
+//   when
+//     $v : /vehicleInstances[(this instanceof Truck), overloaded==false, getCurrentCargoWeight() > getMaxCargoWeight() ]
+//   then
+//     System.out.println("Found Vehicle");
+//     modify($v){setOverloaded(true)};
+// end
+
+// // Example #3: ERROR: Unknown declaration: Truck
+// rule "Truck Rule"
+//   when
+//     $v : /Truck[(this instanceof Truck), overloaded==false, this#Truck.getCurrentCargoWeight()>this#Truck.getMaxCargoWeight() ]
+//   then
+//     System.out.println("Found Vehicle");
+//     modify($v){setOverloaded(true)};
+// end
+
+// // Example #4: FAILS: Not OOPath, rule doesn't fire.
+// rule "Truck Rule"
+//   when
+//     $t: Truck(currentCargoWeight>maxCargoWeight)
+//   then
+//     System.out.println("Found Vehicle");
+//     modify($t){setOverloaded(true)};
+// end
 
 query "GetOverloadedVehicles"
   $v: /vehicleInstances[overloaded]

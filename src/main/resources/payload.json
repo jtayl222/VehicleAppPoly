@@ -1,11 +1,6 @@
 {
     "vehicleInstances": [
       {
-        "vehicleType": "Vehicle",
-        "color": "red",
-        "vehicleId": 1
-      },
-      {
         "vehicleType": "Car",
         "color": "bright green",
         "vehicleId": 2,
