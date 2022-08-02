@@ -4,14 +4,14 @@ unit VehicleUnitData;
 import com.example.vehicle.datamodel.Car;
 import com.example.vehicle.datamodel.Truck;
 
-// Example #1: WORKS
-rule "Truck Rule"
-  when
-    $v : /vehicleInstances[(this instanceof Truck), overloaded==false, this#Truck.getCurrentCargoWeight() > this#Truck.getMaxCargoWeight() ]
-  then
-    System.out.println("Found Vehicle");
-    modify($v){setOverloaded(true)};
-end
+// // Example #1: WORKS
+// rule "Truck Rule"
+//   when
+//     $v : /vehicleInstances[(this instanceof Truck), overloaded==false, this#Truck.getCurrentCargoWeight() > this#Truck.getMaxCargoWeight() ]
+//   then
+//     System.out.println("Found Vehicle");
+//     modify($v){setOverloaded(true)};
+// end
 
 // // Example #2: ERROR: Method getMaxCargoWeight on class com.example.vehicle.datamodel.Vehicle with arguments [] is missing
 // rule "Truck Rule"
@@ -39,6 +39,15 @@ end
 //     System.out.println("Found Vehicle");
 //     modify($t){setOverloaded(true)};
 // end
+
+// Example #5: WORKS
+rule "Truck Rule"
+  when
+    $v : /vehicleInstances#Truck[ currentCargoWeight > maxCargoWeight ]
+  then
+    //System.out.println("Found Vehicle");
+    modify($v){setOverloaded(true)};
+end
 
 query "GetOverloadedVehicles"
   $v: /vehicleInstances[overloaded]
