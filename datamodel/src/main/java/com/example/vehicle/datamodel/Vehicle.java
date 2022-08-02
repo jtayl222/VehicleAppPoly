@@ -7,7 +7,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonTypeInfo(
   use = JsonTypeInfo.Id.NAME, 
   include = JsonTypeInfo.As.PROPERTY, 
-  property = "vehicleType")
+  property = "vehicleType",
+  visible = true)
 @JsonSubTypes({ 
   @Type(value = Car.class, name = "Car"), 
   @Type(value = Truck.class, name = "Truck") 
