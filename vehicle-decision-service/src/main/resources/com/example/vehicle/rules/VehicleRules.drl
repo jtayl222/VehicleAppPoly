@@ -8,22 +8,13 @@ rule "Car Rule using polymorphism"
   when
     $v : /vehicleInstances[overloaded == false, (this instanceof Car), this#Car.currentPassengers > this#Car.maxPassengers ]
   then
-    System.out.println("1");
     modify($v){setOverloaded(true)};
-end
-
-rule "Foo"
-  when
-    $v : /vehicleInstances[this instanceof Car ]
-  then
-    System.out.println("foo");
 end
 
 rule "Truck Rule using polymorphism"
   when
     $v : /vehicleInstances[overloaded == false, (this instanceof Truck), this#Truck.currentCargoWeight > this#Truck.maxCargoWeight]
   then
-    System.out.println("2");
     modify($v){setOverloaded(true)};
 end
 
